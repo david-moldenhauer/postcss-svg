@@ -21,6 +21,7 @@ module.exports = postcss.plugin "postcss-svg", (options = {}) ->
           name = file.substr(0, file.lastIndexOf('/')+1)+name
           if !~name.indexOf('.svg')
             name += '.svg'
+          options.paths = options.paths || []
           options.paths.push(name)
           SVGCache.init(options)
         console.time ("Render svg #{name}") if options.debug

@@ -12,7 +12,6 @@ gulp.task 'styles', ->
 
   postcssProcessors = [
     postcssInlineSVG(
-      paths: ['example']
       debug: true
       svgo: true
       ei:

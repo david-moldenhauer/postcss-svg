@@ -35,6 +35,7 @@
             if (!~name.indexOf('.svg')) {
               name += '.svg';
             }
+            options.paths = options.paths || [];
             options.paths.push(name);
             SVGCache.init(options);
           }
