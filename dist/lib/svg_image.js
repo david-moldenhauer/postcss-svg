@@ -233,7 +233,7 @@
           return "it[\'" + selector + "\']";
         });
         return node.attributes[attributes[type].index].value = "{{= " + (selectors.join(' || ')) + " || \'" + attributes[type].value + "\'}}";
-      } catch (_error) {
+      } catch (error) {
 
       }
     };

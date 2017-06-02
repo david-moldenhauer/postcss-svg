@@ -89,7 +89,7 @@
           return svg.svgFor(ids);
         }
       } else {
-        throw "'" + link + "' not found in SVG csche";
+        throw "'" + link + "' not found in SVG cache";
       }
     }
   };

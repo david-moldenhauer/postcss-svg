@@ -16,11 +16,16 @@ module.exports = postcss.plugin "postcss-svg", (options = {}) ->
       if matches = SVGRegExp.exec(decl.value.replace(/'/g, '"'))
         [replace, args...] = matches
         [name, params...] = args
-        file = style.source && style.source.input && style.source.input.file
-        file = file.substr(0, file.lastIndexOf('/')+1)+name
+        if !~name.indexOf('ei#')
+          file = style.source && style.source.input && style.source.input.file
+          name = file.substr(0, file.lastIndexOf('/')+1)+name
+          if !~name.indexOf('.svg')
+            name += '.svg'
+          options.paths.push(name)
+          SVGCache.init(options)
         console.time ("Render svg #{name}") if options.debug
         try
-          svg = SVGCache.get(file)
+          svg = SVGCache.get(name)
         catch error
           throw decl.error(error) unless silent
         return unless svg
