@@ -11,7 +11,7 @@ module.exports = postcss.plugin "postcss-svg", (options = {}) ->
   (style) ->
     SVGCache.init(options)
 
-    style.eachDecl /^background|^filter|^content|image$/, (decl) ->
+    style.walkDecls /^background|^filter|^content|image$/, (decl) ->
       return unless decl.value
       if matches = SVGRegExp.exec(decl.value.replace(/'/g, '"'))
         [replace, args...] = matches
