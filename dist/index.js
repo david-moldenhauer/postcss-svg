@@ -22,18 +22,20 @@
     return function(style) {
       SVGCache.init(options);
       return style.eachDecl(/^background|^filter|^content|image$/, function(decl) {
-        var args, error, matches, name, params, replace, svg;
+        var args, error, matches, name, params, replace, svg, file;
         if (!decl.value) {
           return;
         }
         if (matches = SVGRegExp.exec(decl.value.replace(/'/g, '"'))) {
           replace = matches[0], args = 2 <= matches.length ? slice.call(matches, 1) : [];
           name = args[0], params = 2 <= args.length ? slice.call(args, 1) : [];
+          file = style.source && style.source.input && style.source.input.file;
+          file = file.substr(0, file.lastIndexOf('/')+1)+name;
           if (options.debug) {
             console.time("Render svg " + name);
           }
           try {
-            svg = SVGCache.get(name);
+            svg = SVGCache.get(file);
           } catch (_error) {
             error = _error;
             if (!silent) {
