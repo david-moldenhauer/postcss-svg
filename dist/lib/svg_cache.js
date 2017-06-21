@@ -56,12 +56,17 @@
       }
     },
     addToIndex: function(filePath, options) {
-      var base, basename, basenameWithExt, svg;
+      var base, basename, basenameWithExt, error, svg;
       if (options == null) {
         options = {};
       }
       if (path.extname(filePath) === '.svg') {
-        svg = new SVGImage(filePath, options);
+        try {
+          svg = new SVGImage(filePath, options);
+        } catch (error1) {
+          error = error1;
+          console.log(filePath + " will not parse properly please check the markup");
+        }
         basename = path.basename(filePath, '.svg');
         basenameWithExt = basename + ".svg";
         if (this.filesIndex[basename]) {

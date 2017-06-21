@@ -34,7 +34,11 @@ module.exports =
 
   addToIndex: (filePath, options = {}) ->
     if path.extname(filePath) == '.svg'
-      svg = new SVGImage(filePath, options)
+      try
+        svg = new SVGImage(filePath, options)
+      catch error
+        console.log(filePath+" will not parse properly please check the markup")
+
       basename = path.basename(filePath, '.svg')
       basenameWithExt = "#{basename}.svg"
 
